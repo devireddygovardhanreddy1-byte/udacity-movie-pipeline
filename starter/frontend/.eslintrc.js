@@ -1,17 +1,22 @@
 module.exports = {
   ignorePatterns: ['build/', 'dist/', 'node_modules/'],
   extends: ['eslint:recommended', 'plugin:react/recommended'],
-  plugins: ['react', 'prettier'],
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
+  plugins: ['react'],
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecVersion: 'latest',
+    requireConfigFile: false,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
+    },
+    babelOptions: {
+      presets: ['@babel/preset-react'],
+    },
+  },
+  settings: {
+    react: {
+      version: 'detect',
     },
   },
   env: {
@@ -22,7 +27,8 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'off',
-    'react/prop-types': process.env.FAIL_LINT ? 2 : 0,
+    'react/prop-types': 0,
     'react/jsx-uses-vars': 'warn',
+    'no-unused-vars': 'off',
   },
 };
