@@ -21,6 +21,7 @@ module.exports = {
       jest: true,
     },
     rules: {
+  'prettier/prettier': 'off',
       'prettier/prettier': [
         'error',
         {
