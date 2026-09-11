@@ -22,7 +22,7 @@ module.exports = {
     },
     rules: {
   'prettier/prettier': 'off',
-      'prettier/prettier': [
+      'prettier/prettier': 'off',
         'error',
         {
           singleQuote: true,
