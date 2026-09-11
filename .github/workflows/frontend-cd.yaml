@@ -70,7 +70,7 @@ jobs:
 
       - name: Set up EKS Kubeconfig
         run: |
-          aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+          aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region us-east-1
 
       - name: Deploy Kubernetes Manifests
         env:
