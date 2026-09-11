@@ -1,0 +1,62 @@
+cat << 'EOF' > .github/workflows/backend-ci.yaml
+name: Backend Continuous Integration
+
+on:
+  pull_request:
+    paths:
+      - 'starter/backend/**'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: starter/backend
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install pipenv and dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Run lint
+        run: pipenv run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install pipenv and dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Run tests
+        run: pipenv run test
+
+  build:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t mp-backend:latest .
+EOF
